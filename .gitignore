@@ -20,6 +20,40 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
+yarn.lock
 
 # Others
-*.swp 
+*.swp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Python virtualenv
+.Python
+
+# JetBrains IDE
+.idea/
+
+# Test/coverage
+coverage/
+*.cover
+*.coverage
+*.cov
+*.log
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Misc
+*.bak
+*.tmp 
