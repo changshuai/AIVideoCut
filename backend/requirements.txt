@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+openai-whisper
+moviepy
+ffmpeg-python
+python-multipart
+websockets>=10.0,<12.0 
