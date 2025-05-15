@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-openai-whisper
+stable-ts
 moviepy
 ffmpeg-python
 python-multipart

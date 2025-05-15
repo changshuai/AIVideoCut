@@ -1,10 +1,11 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi.responses import JSONResponse, FileResponse
 import os
 import tempfile
-from asr import transcribe_with_pauses
+from asr_service import asr_service
 import traceback
 from fastapi.middleware.cors import CORSMiddleware
+from moviepy.editor import VideoFileClip
 
 app = FastAPI()
 
@@ -30,7 +31,7 @@ def asr_transcribe(file: UploadFile = File(...)):
             tmp_path = tmp.name
         print(f"[ASR] Saved temp file: {tmp_path}")
         try:
-            result = transcribe_with_pauses(tmp_path)
+            result = asr_service.transcribe(tmp_path)
             print(f"[ASR] Transcription result: {result[:2]} ... total {len(result)} segments")
         finally:
             os.remove(tmp_path)
@@ -39,4 +40,26 @@ def asr_transcribe(file: UploadFile = File(...)):
     except Exception as e:
         print("[ASR] ERROR during transcription:")
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=f"ASR error: {e}") 
+        raise HTTPException(status_code=500, detail=f"ASR error: {e}")
+
+@app.post("/extract-audio")
+def extract_audio(file: UploadFile = File(...), background_tasks: BackgroundTasks = None):
+    print(f"[ExtractAudio] Received file: {file.filename}, content_type: {file.content_type}")
+    suffix = os.path.splitext(file.filename)[-1]
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+        tmp.write(file.file.read())
+        video_path = tmp.name
+    audio_path = video_path + ".wav"
+    try:
+        clip = VideoFileClip(video_path)
+        clip.audio.write_audiofile(audio_path)
+        clip.close()
+        print(f"[ExtractAudio] Audio extracted: {audio_path}")
+        if background_tasks is not None:
+            background_tasks.add_task(os.remove, video_path)
+            background_tasks.add_task(os.remove, audio_path)
+        return FileResponse(audio_path, filename=os.path.basename(audio_path), media_type="audio/wav")
+    except Exception as e:
+        print("[ExtractAudio] ERROR:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Extract audio error: {e}") 
