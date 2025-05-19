@@ -25,9 +25,26 @@ class ASRService:
             language="zh"  # 设置语言为中文
         )
         
-        # 将结果转换为所需的格式
+        # 将结果转换为所需的格式，并插入空隙时间
         segments = []
+        last_end = None
         for segment in result.segments:
+            # 插入空隙时间标注
+            if last_end is not None and segment.start > last_end:
+                gap_sec = segment.start - last_end
+                gap_sec_str = f"[{gap_sec:.3f} sec]"
+                segments.append({
+                    "start": last_end,
+                    "end": segment.start,
+                    "text": gap_sec_str,
+                    "words": [
+                        {
+                            "word": gap_sec_str,
+                            "start": last_end,
+                            "end": segment.start
+                        }
+                    ]
+                })
             segments.append({
                 "start": segment.start,
                 "end": segment.end,
@@ -41,7 +58,7 @@ class ASRService:
                     for word in segment.words
                 ] if hasattr(segment, 'words') else []
             })
-        
+            last_end = segment.end
         return segments
 
 # 创建全局 ASR 服务实例
