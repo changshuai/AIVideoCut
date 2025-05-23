@@ -57,5 +57,19 @@ AI_cut_video/
 - 上传视频时，支持视频预览与识别结果时间轴联动。
 - 后续可扩展剪辑、导出等功能。
 
+## 配置大模型API_KEY（重要）
+
+1. 在 `desktop_python` 目录下新建 `config.json` 文件，内容如下：
+
+```json
+{
+  "API_KEY": "你的key"
+}
+```
+
+2. 建议将 `config.json` 加入 `.gitignore`，避免上传到GitHub泄露密钥。
+
+3. 未配置或配置错误时，桌面端会弹窗提示。
+
 ---
 如遇依赖安装或运行问题，请确保Python、Node.js、ffmpeg等环境已正确安装。 

@@ -6,7 +6,7 @@ import whisper
 import os
 
 # 停顿阈值（秒），大于此值认为是换气/停顿
-PAUSE_THRESHOLD = 0.5
+PAUSE_THRESHOLD = 0.2
 
 # 切换为 medium 模型，兼顾细节和CPU稳定性
 model = whisper.load_model("medium")
@@ -21,7 +21,7 @@ def transcribe_with_pauses(audio_path: str) -> List[Dict]:
         word_timestamps=True,
         verbose=False,
         language="zh",
-        condition_on_previous_text=False
+        condition_on_previous_text=False,
     )
     segments = result.get("segments", [])
     output = []

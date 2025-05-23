@@ -22,7 +22,7 @@ class ASRService:
             audio_path,
             vad=True,  # 使用 VAD 进行语音检测
             word_timestamps=True,  # 启用词级别时间戳
-            language="zh"  # 设置语言为中文
+            language="zh",  # 设置语言为中文
         )
         
         # 将结果转换为所需的格式，并插入空隙时间
