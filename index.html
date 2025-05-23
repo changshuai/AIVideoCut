@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AI智能剪辑口播视频 Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; background: #fafbfc; color: #222; }
+    h1 { text-align: center; }
+    .video-block { margin-bottom: 40px; }
+    video { display: block; margin: 0 auto 10px auto; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    .caption { text-align: center; font-size: 1.1em; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>AI智能剪辑口播视频 Demo</h1>
+
+  <div class="video-block">
+    <div class="caption">优化前视频（original.mov）</div>
+    <video width="480" controls>
+      <source src="Demo/original.mov" type="video/mp4">
+      <source src="Demo/original.mov" type="video/quicktime">
+      您的浏览器不支持 video 标签。
+    </video>
+  </div>
+
+  <div class="video-block">
+    <div class="caption">优化后视频（optimized.mp4）</div>
+    <video width="480" controls>
+      <source src="Demo/optimized.mp4" type="video/mp4">
+      您的浏览器不支持 video 标签。
+    </video>
+  </div>
+
+  <div style="text-align:center;color:#888;font-size:0.95em;">
+    &copy; 2024 AI智能剪辑口播视频工具 Demo
+  </div>
+</body>
+</html> 
