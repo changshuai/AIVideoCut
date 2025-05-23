@@ -72,4 +72,13 @@ AI_cut_video/
 3. 未配置或配置错误时，桌面端会弹窗提示。
 
 ---
-如遇依赖安装或运行问题，请确保Python、Node.js、ffmpeg等环境已正确安装。 
+如遇依赖安装或运行问题，请确保Python、Node.js、ffmpeg等环境已正确安装。
+
+## Demo 视频示例
+
+本项目在 `Demo/` 目录下提供了两段示例视频，便于对比优化前后的效果：
+
+- [`Demo/original.mov`](Demo/original.mov)：**优化前** 的原始口播视频
+- [`Demo/optimized.mp4`](Demo/optimized.mp4)：**优化后** 的AI剪辑视频
+
+可用于功能演示、效果对比或测试。 
